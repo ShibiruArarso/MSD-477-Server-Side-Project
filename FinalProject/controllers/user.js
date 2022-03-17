@@ -87,7 +87,7 @@ exports.userPwrdUpdate = async (req, res, next) => {
       res.status(404).send("Not found");
    } else {
       let user = new User("", "", bcrypt.hashSync(password, 10), "");
-      let response = await user.updatePdw(userCode);
+      let response = await user.updatePWD(userCode);
       if (response) {
          res.status(201).send("updated successfully");
       } else {
@@ -153,11 +153,11 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUserByUsercode = async (req, res) => {
    let giveCode = req.params.userCode;
-   var isDelete = await dummy.delete(giveCode);
+   var isDelete = await dummy.deleteOneUser(giveCode);
    if (isDelete) {
-      res.send("Deleted");
+      res.status(200).json("Deleted");
    } else {
-      res.send("Not found");
+      res.status(500).send("Not found");
    }
 };
 

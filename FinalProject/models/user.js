@@ -38,7 +38,7 @@ class User {
       }
       return false;
    }
-   async updatePdw(givenCode) {
+   async updatePWD(givenCode) {
       const user = await UserModel.findOne({ userCode: givenCode });
       if (user) {
          await user.updateOne({ password: this.password });
@@ -47,12 +47,22 @@ class User {
       return false;
    }
 
-   async delete(givenCode) {
-      const user = await this.getUserByUsername(givenCode);
-      if (user) {
+   // async delete(givenCode) {
+   //    const user = await this.getUserByUsername(givenCode);
+   //    if (user) {
+   //       await UserModel.deleteOne({ userCode: givenCode });
+   //       return true;
+   //    } else {
+   //       return false;
+   //    }
+   // }
+
+   //OR Delete this way also
+   async deleteOneUser(givenCode) {
+      try {
          await UserModel.deleteOne({ userCode: givenCode });
          return true;
-      } else {
+      } catch (error) {
          return false;
       }
    }
